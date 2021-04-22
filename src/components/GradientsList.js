@@ -1,28 +1,34 @@
 import Gradient from "./Gradient"
-const GradientsList = () => {
+
+const GradientsList = ({ gradients, tagSelect, setTagSelect }) => {
+  let newGradients = []
+  if (tagSelect === 'tous') {
+    newGradients = gradients
+  }
+  else {
+    for (const gradient of gradients) {
+      for (const tag of gradient.tags) {
+        if (tag === tagSelect)
+          newGradients.push(gradient)
+      }
+    }
+  }
   return (
     <ul className="row list-unstyled">
-      <Gradient
-        colorStart="rgb(189, 195, 199)"
-        colorEnd="rgb(44, 62, 80)"
-        name="Grade Grey"
-      />
-      <Gradient
-        colorStart="rgb(31, 64, 55)"
-        colorEnd="rgb(153, 242, 200)"
-        name="Harvey"
-      />
-      <Gradient
-        colorStart="rgb(0, 242, 96)"
-        colorEnd="rgb(5, 117, 230)"
-        name="Rainbow Blue"
-      />
-      <Gradient
-        colorStart="rgb(168, 192, 255)"
-        colorEnd="rgb(63, 43, 150)"
-        name="Slight Ocean View"
-      />
-    </ul>
+      {newGradients.map((elem) => (
+        < Gradient
+          key={elem.name}
+          colorStart={elem.start}
+          colorEnd={elem.end}
+          name={elem.name}
+          gradients={gradients}
+          tag={elem.tags}
+          setTagSelect={setTagSelect}
+          tagSelect={tagSelect}
+        />
+      ))
+      }
+    </ul >
   )
 }
 

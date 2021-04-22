@@ -1,13 +1,16 @@
-import GradientsList from "./components/GradientsList"
+import { gradients } from "./gradients"
+import GradientApp from "./components/GradientsApp"
+import { useState } from "react"
+
 
 function App() {
+  const [tagSelect, setTagSelect] = useState('tous')
   return (
-    <div>
-      <h1 className="text-center my-4">Alyra Gradients</h1>
-      <main className="container">
-        <GradientsList />
-      </main>
-    </div>
+    <GradientApp
+      gradients={gradients}
+      tagSelect={tagSelect}
+      setTagSelect={setTagSelect}>
+    </GradientApp>
   )
 }
 
